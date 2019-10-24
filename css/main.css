@@ -14,10 +14,11 @@ div#todo{
 }
 
 div#completed{
-    border: 1px solid red;
+    border: 1px solid black;
     float: right;
     background-color: lightcoral;
     margin-left: 2%;
+    text-decoration: line-through;
 }
 
 @media only screen and (max-width: 600px){
