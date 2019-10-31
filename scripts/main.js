@@ -15,8 +15,21 @@ myItem.deadline = new Date(2019, 9, 29);
 // stringify converts any object into any JSON string format
 var strData = JSON.stringify(myItem);
 console.log(strData);
+var cookieKey = "todoitems";
 // Setting a cookie called 'todoitems' that expire in a week
-Cookies.set("todoitems", strData, { expires: 7 });
+Cookies.set("cookieKey", strData, { expires: 7 });
+var cookieItem = JSON.parse(Cookies.get("cookieKey"));
+console.log("Read cookie data");
+console.log(cookieItem.title + " " + cookieItem.deadline);
+var storageKey = "Task";
+// Store ToDo item using HTML5 Web Storage
+if (typeof (Storage) != "undefined") {
+    localStorage.setItem(storageKey, strData);
+    var storageStr = localStorage.getItem(storageKey);
+    var item = JSON.parse(storageStr);
+    console.log("Read storage data");
+    console.log(item.title);
+}
 /* END OF TEST CODE */
 window.onload = function () {
     var addBtn = document.querySelector("form > input[type=button]");
@@ -25,7 +38,12 @@ window.onload = function () {
 function main() {
     var item = getItem();
     displayToDoItem(item);
-    // Save ToDoItem
+    var allItems = readToDoItems();
+    allItems.push(item); // Add new item to existing list
+    saveToDoItems(allItems);
+    for (var i = 0; i < allItems.length; i++) {
+        alert(allItems[i].title);
+    }
 }
 /**
  * Move selected task to completed section
@@ -60,4 +78,17 @@ function getItem() {
     item.deadline = new Date(deadline);
     item.isCompleted = false;
     return item;
+}
+var theStorageKey = "MyItems";
+function saveToDoItems(items) {
+    var stringData = JSON.stringify(items);
+    localStorage.setItem(theStorageKey, stringData);
+}
+function readToDoItems() {
+    var stringData = localStorage.getItem(theStorageKey);
+    if (stringData == null)
+        return new Array();
+    var itemArr = JSON.parse(stringData);
+    return itemArr;
+    // return <Array<ToDoItem>>JSON.parse(stringData);
 }

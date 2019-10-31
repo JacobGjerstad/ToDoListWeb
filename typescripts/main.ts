@@ -21,8 +21,28 @@ myItem.deadline = new Date(2019, 9, 29)
 let strData = JSON.stringify(myItem);
 console.log(strData);
 
+const cookieKey = "todoitems";
+
 // Setting a cookie called 'todoitems' that expire in a week
-Cookies.set("todoitems", strData, { expires: 7})
+Cookies.set("cookieKey", strData, { expires: 7})
+
+let cookieItem:ToDoItem = JSON.parse(Cookies.get("cookieKey"));
+
+console.log("Read cookie data");
+console.log(cookieItem.title + " " + cookieItem.deadline);
+
+
+const storageKey = "Task";
+// Store ToDo item using HTML5 Web Storage
+if(typeof(Storage) != "undefined") {
+    localStorage.setItem(storageKey, strData);
+    let storageStr = localStorage.getItem(storageKey);
+    let item:ToDoItem = JSON.parse(storageStr);
+    
+    console.log("Read storage data");
+    console.log(item.title);
+
+}
 
 
 
@@ -39,7 +59,13 @@ function main(){
 
     displayToDoItem(item);
 
-    // Save ToDoItem
+    let allItems = readToDoItems();
+    allItems.push(item);                // Add new item to existing list
+    saveToDoItems(allItems);
+
+    for(let i = 0; i < allItems.length; i++){
+        alert(allItems[i].title);
+    }
 }
 
 /**
@@ -84,4 +110,24 @@ function getItem():ToDoItem{
     item.isCompleted = false;
 
     return item;
+}
+
+const theStorageKey = "MyItems";
+
+function saveToDoItems(items:Array<ToDoItem>){
+    let stringData = JSON.stringify(items);
+    localStorage.setItem(theStorageKey, stringData);
+
+}
+
+function readToDoItems():Array<ToDoItem>{
+    let stringData = localStorage.getItem(theStorageKey);
+
+    if(stringData == null)
+        return new Array<ToDoItem>();
+
+    let itemArr:Array<ToDoItem> = JSON.parse(stringData);
+    return itemArr;
+
+    // return <Array<ToDoItem>>JSON.parse(stringData);
 }
