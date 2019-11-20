@@ -1,6 +1,6 @@
 
 div#todo, div#completed{
-    width: 48%;
+    width: 25%;
     box-sizing: border-box;
     border-radius: .2em;
     padding: .3em;
@@ -9,16 +9,26 @@ div#todo, div#completed{
 div#todo{
     border: 1px solid black;
     float: left;
-    background-color: lightblue;
+    background-color: lightcoral;
     margin-right: 2%;
+    margin-left: 12%;
 }
 
 div#completed{
     border: 1px solid black;
     float: right;
-    background-color: lightcoral;
+    background-color: lightgreen;
     margin-left: 2%;
     text-decoration: line-through;
+    margin-right: 12%;
+}
+
+form, h1{
+    text-align-last: center;
+}
+
+body{
+    background-color: aqua;
 }
 
 @media only screen and (max-width: 600px){
