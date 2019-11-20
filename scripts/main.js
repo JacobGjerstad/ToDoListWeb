@@ -8,28 +8,39 @@ var ToDoItem = /** @class */ (function () {
     return ToDoItem;
 }());
 /*  TEST CODE HERE  */
-var myItem = new ToDoItem("Learn about cookies=;");
+/*
+let myItem = new ToDoItem("Learn about cookies=;");
 myItem.isCompleted = false;
 // Oct 29th 2019 (Month starts at 0)
-myItem.deadline = new Date(2019, 9, 29);
+myItem.deadline = new Date(2019, 9, 29)
+
 // stringify converts any object into any JSON string format
-var strData = JSON.stringify(myItem);
+let strData = JSON.stringify(myItem);
 console.log(strData);
-var cookieKey = "todoitems";
+
+const cookieKey = "todoitems";
+
 // Setting a cookie called 'todoitems' that expire in a week
-Cookies.set("cookieKey", strData, { expires: 7 });
-var cookieItem = JSON.parse(Cookies.get("cookieKey"));
+Cookies.set("cookieKey", strData, { expires: 7})
+
+let cookieItem:ToDoItem = JSON.parse(Cookies.get("cookieKey"));
+
 console.log("Read cookie data");
 console.log(cookieItem.title + " " + cookieItem.deadline);
-var storageKey = "Task";
+
+
+const storageKey = "Task";
 // Store ToDo item using HTML5 Web Storage
-if (typeof (Storage) != "undefined") {
+if(typeof(Storage) != "undefined") {
     localStorage.setItem(storageKey, strData);
-    var storageStr = localStorage.getItem(storageKey);
-    var item = JSON.parse(storageStr);
+    let storageStr = localStorage.getItem(storageKey);
+    let item:ToDoItem = JSON.parse(storageStr);
+    
     console.log("Read storage data");
     console.log(item.title);
+
 }
+*/
 /* END OF TEST CODE */
 window.onload = function () {
     var addBtn = document.querySelector("form > input[type=button]");
@@ -41,9 +52,6 @@ function main() {
     var allItems = readToDoItems();
     allItems.push(item); // Add new item to existing list
     saveToDoItems(allItems);
-    for (var i = 0; i < allItems.length; i++) {
-        alert(allItems[i].title);
-    }
 }
 /**
  * Move selected task to completed section
